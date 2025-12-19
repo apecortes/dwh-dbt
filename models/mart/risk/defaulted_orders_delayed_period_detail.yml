@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: defaulted_orders_delayed_period_detail
+    description: >
+      Final risk mart exposing a detailed, non-aggregated dataset of defaulted orders
+      expanded by delayed period. This model is intended for monitoring and analytical
+      purposes only and should not be aggregated, as it does not include monetary amounts
+      or pre-calculated metrics.
+
+    columns:
+
+      - name: shopper_age
+        description: Age of the shopper associated with the order.
+        tests:
+          - not_null
+
+      - name: month_year_order
+        description: Month of the order formatted as YYYY-MM.
+        tests:
+          - not_null
+
+      - name: product
+        description: Name of the product associated with the order.
+        tests:
+          - not_null
+
+      - name: merchant
+        description: Name of the merchant associated with the order.
+        tests:
+          - not_null
+
+      - name: default_type
+        description: Type of default associated with the order.
+        tests:
+          - not_null
+
+      - name: delayed_period
+        description: >
+          Delayed period bucket (in days) used for monitoring defaulted orders.
+          An order can appear in multiple delayed periods depending on the number
+          of days unbalanced.
+        tests:
+          - not_null

@@ -1,0 +1,34 @@
+version: 2
+
+sources:
+  - name: seqdb
+    description: >
+      Source data used for Exercise 2 (Loan Default Model).
+      These tables represent a simplified analytical source system
+      used to replicate a realistic data warehouse environment.
+    database: sequra-dwh
+    schema: seqdb
+    loader: bigquery
+
+    # freshness:
+    #   warn_after: {count: 12, period: hour}
+    #   error_after: {count: 24, period: hour}
+
+    tables:
+      - name: orders
+        description: Orders table representing loans and their payment status.
+
+      - name: shopper
+        description: Shopper dimension table containing demographic and personal attributes.
+
+      - name: product
+        description: Product dimension table used for analytical slicing.
+
+      - name: merchant
+        description: Merchant dimension table used for analytical slicing.
+
+      - name: default_order_type
+        description: Lookup table defining different types of loan defaults.
+
+      - name: rel_default_order_type
+        description: Relationship table linking orders to default types.

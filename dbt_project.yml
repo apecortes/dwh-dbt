@@ -1,0 +1,43 @@
+# Project name
+# Must contain only lowercase characters and underscores
+name: 'analytics_engineer_challenge'
+version: '1.0.0'
+config-version: 2
+
+# dbt Cloud profile
+profile: 'default'
+
+# Paths configuration
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+# Target paths
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Models configuration
+models:
+  analytics_engineer_challenge:
+
+    # Staging layer
+    # Light transformations only (casting, renaming)
+    # Materialized as views for simplicity and cost efficiency
+    staging:
+      +materialized: view
+
+    # Intermediate layer
+    # Business logic and row expansion (e.g. delayed periods)
+    # Materialized as tables for performance
+    intermediate:
+      +materialized: table
+
+    # Marts layer
+    # Final analytical datasets
+    marts:
+      +materialized: table
