@@ -26,6 +26,7 @@ shoppers as (
     select
         shopper_id,
         shopper_age
+
     from {{ ref('int_shopper') }}
 
 ),
@@ -35,6 +36,7 @@ products as (
     select
         product_id,
         product_name
+
     from {{ ref('int_product') }}
 
 ),
@@ -44,6 +46,7 @@ merchants as (
     select
         merchant_id,
         merchant_name
+
     from {{ ref('int_merchant') }}
 
 ),
@@ -57,6 +60,7 @@ final as (
         m.merchant_name as merchant,
         odp.default_type_name as default_type,
         odp.delayed_period
+
     from orders_delayed_periods odp
     left join shoppers s
         on odp.shopper_id = s.shopper_id
