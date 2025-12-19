@@ -1,0 +1,138 @@
+version: 2
+
+models:
+
+  - name: int_orders
+    description: >
+      Core intermediate model representing loans (orders).
+      One row per order, enriched with default-related information and monetary fields.
+      This model centralizes all attributes required to analyze loan status and default behavior
+      before expanding data into delayed periods.
+
+    columns:
+      - name: order_id
+        description: Primary identifier of the order (loan).
+        tests:
+          - not_null
+          - unique
+
+      - name: shopper_id
+        description: Identifier of the shopper associated with the order.
+
+      - name: merchant_id
+        description: Identifier of the merchant associated with the order.
+
+      - name: product_id
+        description: Identifier of the product associated with the order.
+
+      - name: order_date
+        description: Date when the order was placed.
+
+      - name: is_in_default
+        description: Indicates whether the order is currently in default.
+
+      - name: days_unbalanced
+        description: Number of days the order payment is overdue.
+
+      - name: current_order_value
+        description: Total monetary value of the order.
+
+      - name: overdue_principal
+        description: Overdue principal amount for the order.
+
+      - name: overdue_fees
+        description: Overdue fees amount for the order.
+      
+      - name: default_type_name
+        description: Name of the default type associated with the order.
+
+  - name: int_product
+    description: >
+      Core product dimension model.
+      Created to replicate a realistic analytical environment and enable product-level analysis
+      in downstream marts.
+
+    columns:
+      - name: product_id
+        description: Primary identifier of the product.
+        tests:
+          - not_null
+          - unique
+
+      - name: product_name
+        description: Name of the product.
+
+  - name: int_merchant
+    description: >
+      Core merchant dimension model.
+      Minimal by design, structured to allow future enrichment without impacting downstream models.
+
+    columns:
+      - name: merchant_id
+        description: Primary identifier of the merchant.
+        tests:
+          - not_null
+          - unique
+
+      - name: merchant_name
+        description: Name of the merchant.
+
+  - name: int_shopper
+    description: >
+      Core shopper dimension model.
+      Contains demographic attributes used for analytical segmentation.
+
+    columns:
+      - name: shopper_id
+        description: Primary identifier of the shopper.
+        tests:
+          - not_null
+          - unique
+
+      - name: shopper_age
+        description: Age of the shopper.
+
+  - name: int_orders_delayed_periods
+    description: >
+      Risk-specific intermediate model that expands orders in default
+      into multiple rows based on delayed periods (17, 30, 60, 90 days).
+      The grain of this model is one row per order and delayed period.
+
+    columns:
+      - name: order_delayed_period_id
+        description: >
+          Surrogate key generated from order_id, shopper_id, merchant_id,
+          product_id and delayed_period to uniquely identify each row.
+        tests:
+          - not_null:
+              severity: error
+          - unique:
+              severity: error
+
+      - name: order_id
+        description: Identifier of the order (loan).
+        tests:
+          - not_null
+
+      - name: delayed_period
+        description: Delayed period bucket (in days) applicable to the order.
+        tests:
+          - not_null
+
+      - name: shopper_id
+        description: Identifier of the shopper associated with the order.
+
+      - name: merchant_id
+        description: Identifier of the merchant associated with the order.
+
+      - name: product_id
+        description: Identifier of the product associated with the order.
+
+      - name: order_month
+        description: Month of the order, truncated to month level.
+
+      - name: default_type_id
+        description: Identifier of the default type associated with the order.
+
+      - name: default_type_name
+        description: Name of the default type associated with the order.

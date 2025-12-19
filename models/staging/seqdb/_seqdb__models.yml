@@ -1,0 +1,111 @@
+version: 2
+
+models:
+  - name: stg_seqdb__orders
+    description: Staging model for orders (loans).
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - unique
+
+      - name: shopper_id
+        tests:
+          - not_null
+
+      - name: order_date
+        tests:
+          - not_null
+
+      - name: product_id
+        tests:
+          - not_null
+
+      - name: merchant_id
+        tests:
+          - not_null
+
+      - name: is_in_default
+        tests:
+          - not_null
+
+      - name: days_unbalanced
+        tests:
+          - not_null
+
+      - name: current_order_value
+        tests:
+          - not_null
+
+      - name: overdue_principal
+        tests:
+          - not_null
+
+      - name: overdue_fees
+        tests:
+          - not_null
+
+  - name: stg_seqdb__shopper
+    description: Staging model for shopper attributes.
+    columns:
+      - name: shopper_id
+        tests:
+          - not_null
+          - unique
+
+      - name: shopper_age
+        tests:
+          - not_null
+
+  - name: stg_seqdb__product
+    description: >
+      Product dimension table created to replicate a more realistic analytical
+      environment, as required by the output specification of Exercise 2.
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+          - unique
+
+      - name: product_name
+        tests:
+          - not_null
+
+  - name: stg_seqdb__merchant
+    description: >
+      Merchant dimension table created to replicate a more realistic analytical
+      environment and enable merchant-level analysis in the final dataset.
+    columns:
+      - name: merchant_id
+        tests:
+          - not_null
+          - unique
+
+      - name: merchant_name
+        tests:
+          - not_null
+
+  - name: stg_seqdb__default_order_type
+    description: >
+      Default type dimension table used to classify different types of loan defaults.
+    columns:
+      - name: default_type_id
+        tests:
+          - not_null
+          - unique
+
+      - name: default_type_name
+        tests:
+          - not_null
+
+  - name: stg_seqdb__rel_default_order_type
+    description: Relationship table between orders and default types.
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - unique
+
+      - name: default_type_id
+        tests:
+          - not_null
