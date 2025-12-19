@@ -1,10 +1,10 @@
-# Analytics Engineer Challenge – Solution
+# 🧩 Analytics Engineer Challenge – Solution
 
 This repository contains my solution to the **Analytics Engineer Challenge**, structured to clearly separate the two parts of the exercise and to demonstrate data modeling, SQL reasoning, and dbt best practices.
 
 ---
 
-## Repository Structure
+## 📁 Repository Structure
 
 The challenge is divided into two independent parts:
 
@@ -26,21 +26,21 @@ The challenge is divided into two independent parts:
 
 ---
 
-# Part I – Shopper Recurrence Rate (SQL)
+# 🧮 Part I – Shopper Recurrence Rate (SQL)
 
 Part I of the challenge is implemented as a **standalone SQL solution**, following the exercise instructions.
 
 All the content related to this part can be found in the `part_1` folder:
 
-- `part_1/shopper_recurrence_rate.md`  
+- 📄 `part_1/shopper_recurrence_rate.md`  
   → Explanation of the approach, assumptions, and logic used
 
-- `part_1/shopper_recurrence_rate.sql`  
+- 🧾 `part_1/shopper_recurrence_rate.sql`  
   → Final SQL solution
 
 ---
 
-# Part II – Loan Default Modeling (dbt)
+# 🏗️ Part II – Loan Default Modeling (dbt)
 
 Part II is implemented using **dbt**.
 
@@ -48,7 +48,7 @@ The goal of this part is to build a **detailed analytical dataset** that allows 
 
 ---
 
-# High-level Architecture
+# 🧱 High-level Architecture
 
 The dbt project follows a layered architecture:
 
@@ -58,7 +58,7 @@ Each layer has a clearly defined responsibility.
 
 ---
 
-# Staging Layer
+# 🧪 Staging Layer
 
 - Mirrors the source tables
 - Applies:
@@ -71,7 +71,7 @@ Each layer has a clearly defined responsibility.
 
 ---
 
-# Intermediate Layer
+# 🔄 Intermediate Layer
 
 The intermediate layer is split by domain:
 ```
@@ -81,7 +81,7 @@ intermediate/
 ```
 
 
-### Core models
+### 🔹 Core models
 
 Core models represent **business entities**, independent of the physical data source:
 
@@ -97,7 +97,7 @@ Key characteristics:
 
 ---
 
-### Risk models
+### 🔹 Risk models
 
 Risk-specific transformations live under `intermediate/risk`.
 
@@ -112,7 +112,7 @@ to **1 row per order × delayed_period**
 
 ---
 
-### Delayed periods configuration
+### ⚙️ Delayed periods configuration
 
 - Delayed periods are modeled using a **dbt seed**
 - This avoids hardcoding business configuration in SQL
@@ -120,7 +120,7 @@ to **1 row per order × delayed_period**
 
 ---
 
-### Surrogate key and data integrity
+### 🔑 Surrogate key and data integrity
 
 Because the model introduces a **Cartesian product** (order × delayed_period):
 
@@ -140,7 +140,7 @@ Primary key tests are configured to **fail with error severity**.
 
 ---
 
-### Business assumptions
+### 📌 Business assumptions
 
 - Only orders in default are considered in the risk models
 - It is assumed that:
@@ -151,7 +151,7 @@ Primary key tests are configured to **fail with error severity**.
 
 ---
 
-### Custom data quality test
+### 🧪 Custom data quality test
 
 A custom dbt test validates that:
 
@@ -167,7 +167,7 @@ This ensures that the delayed period expansion logic is always applied correctly
 
 ---
 
-# Mart Layer – Risk
+# 📊 Mart Layer – Risk
 
 ### Final model
 
@@ -176,7 +176,7 @@ This ensures that the delayed period expansion logic is always applied correctly
 
 ---
 
-### Purpose of the mart
+### 🎯 Purpose of the mart
 
 This model:
 
@@ -193,7 +193,7 @@ The model name explicitly includes `delayed_period` to make the grain and intend
 
 ---
 
-### Default Ratio metric (conceptual note)
+### 📈 Default Ratio metric (conceptual note)
 
 If a **Default Ratio** metric were required, it should be implemented in a **separate mart**, directly dependent on `int_orders`, where monetary amounts are available and both defaulted and non-defaulted orders are included.
 
@@ -210,7 +210,7 @@ This calculation is intentionally **out of scope** for the risk monitoring mart.
 
 ---
 
-## Technology Choices
+## ✅ Technology Choices
 
 - **dbt**: data modeling, testing, and documentation
 - **BigQuery**: analytical warehouse, chosen for ease of setup and experimentation
