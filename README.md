@@ -12,8 +12,7 @@ The challenge is divided into two independent parts:
 ├── part_1/
 │ ├── shopper_recurrence_rate.md
 │ └── shopper_recurrence_rate.sql
-└── dbt/
-├── models/
+└── models/
 │ ├── staging/
 │ ├── intermediate/
 │ │ ├── core/
