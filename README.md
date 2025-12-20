@@ -18,7 +18,7 @@ The challenge is divided into two independent parts:
 │ │ ├── core/
 │ │ └── risk/
 │ └── marts/
-│ └── risk/
+│   └── risk/
 ├── seeds/
 └── tests/
 ```

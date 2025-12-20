@@ -101,8 +101,8 @@ models:
     columns:
       - name: order_delayed_period_id
         description: >
-          Surrogate key generated from order_id, shopper_id, merchant_id,
-          product_id and delayed_period to uniquely identify each row.
+          Surrogate key generated from order_id and delayed_period to 
+          uniquely identify each row.
         tests:
           - not_null:
               severity: error
