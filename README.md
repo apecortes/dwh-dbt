@@ -125,9 +125,6 @@ Because the model introduces a **Cartesian product** (order × delayed_period):
 
 - A **surrogate key** is generated using:
 - `order_id`
-- `shopper_id`
-- `merchant_id`
-- `product_id`
 - `delayed_period`
 
 This ensures:
