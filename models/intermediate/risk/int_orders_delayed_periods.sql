@@ -33,9 +33,6 @@ final as (
     select
         {{ dbt_utils.generate_surrogate_key([
             'o.order_id',
-            'o.shopper_id',
-            'o.merchant_id',
-            'o.product_id',
             'd.delayed_period'
         ]) }} as order_delayed_period_id,
         o.order_id,
